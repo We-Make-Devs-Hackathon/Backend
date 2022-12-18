@@ -1,0 +1,114 @@
+swagger: "2.0"
+info:
+  description: API Doc
+  version: 1.0.0
+  title: IAM Microservice
+  contact:
+    email: developer@example.com
+basePath: /hospital-iam/api/v1
+tags:
+  - name: auth
+paths:
+  /auth/admin/login:
+    post:
+      tags:
+        - auth
+      parameters:
+        - in: body
+          required: true
+          name: body
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                example: admin@gmail.com
+              password:
+                type: string
+                example: admin@123
+      responses:
+        200:
+          description: OK
+          schema:
+            allOf:
+              - $ref: "#/definitions/BaseResponse"
+              - type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      type:
+                        type: string
+                        example: Bearer
+                      role:
+                        type: string
+                        enum:
+                          - SuperAdmin
+                          - SubAdmin
+                      permissions:
+                        type: array
+                        items:
+                          type: string
+  /auth/refresh-token:
+    get:
+      tags:
+        - auth
+      parameters:
+        - in: header
+          name: Authorization
+          type: string
+          required: true
+          description: Bearer eyJhbGciOiJIUzI1NiIsInR5...
+      responses:
+        200:
+          description: OK
+          schema:
+            allOf:
+              - $ref: "#/definitions/BaseResponse"
+              - type: object
+                properties:
+                  result:
+                    type: object
+                    properties:
+                      token:
+                        type: string
+                      type:
+                        type: string
+                        example: Bearer
+  /auth/admin/logout:
+    get:
+      tags:
+        - auth
+      security:
+        - BearerAuth: []
+      responses:
+        "200":
+          description: OK
+security:
+  - APIKeyHeader: []
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    in: header
+    name: Authorization     
+definitions:
+  ErrorObject:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+  BaseResponse:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: "#/definitions/ErrorObject"
+        description: nullable field
+      errorDescription:
+        type: string
+        description: nullable field
