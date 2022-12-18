@@ -1,0 +1,628 @@
+swagger: "2.0"
+info:
+  description: API Doc
+  version: 1.0.0
+  title: User Microservice
+  contact:
+    email: developer@retechgen.com
+
+
+basePath: /hospital-user/api/v1
+paths:
+
+
+# **************************************************DOCTOR ENDPOINTS*****************************************
+
+
+# Api Test EndPoint
+  /doctor/test:
+   get:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: This api is used to check if doctor endpoint is working or not.
+      description: This api is used to check if doctor endpoint is working or not.
+      responses:
+        200:
+            description : Doctor endpoint working Fine.
+
+
+# Get Doctors by Hospital ID
+  /doctor/hospitalDoctors:
+    post:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: Returns a list of doctors using hospital id.
+      description: Hospital id is sent in body & then api returns a list of doctors with that hospital id.
+      parameters:
+        - in: body
+          name: id
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+          required: true
+          description: AlphaNumeric ID of the hospital to get doctors list.
+
+      responses:
+        '200':    # status code
+          description: List of doctors using hospital id received.
+
+
+# Get Doctor's Details
+  /doctor/{docid}:
+    get:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: Returns a doctor's details using doctor id.
+      description: Doctor id is sent in path parameter & then api returns doctor's details with that doctor id.
+      parameters:
+        - in: path
+          name: docid
+          schema:
+            type: string
+          required: true
+          description: Doctor Id of doctor to be fetched.
+
+      responses:
+        '200':    # status code
+          description: Doctor's profile fetched successfully.
+
+
+# Add Doctor
+  /doctor/addDoctor:
+    post:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: To add a doctor in database.
+      description: Doctor details are sent in body to add that doctor in database.
+      parameters:
+        - in: body
+          name: Doctor Details
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+              password:
+                type: string
+              gender:
+                type: string
+              phoneNumber:
+                type: number
+              speciality:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfJoining:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              doctorId:
+                type: string
+          required: true
+          description: Doctor details to add that doctor in database.
+
+      responses:
+        '200':    # status code
+          description: Doctor added successfully in database.
+
+
+
+# Update Doctor
+  /doctor/updateDoctor:
+    post:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: To update a doctor's details in database.
+      description: Updated doctor's details are sent in body to update that doctor's details in database.
+      parameters:
+        - in: body
+          name: Doctor Details
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              firstName:
+                type: string
+              lastName:
+                type: string
+              gender:
+                type: string
+              phoneNumber:
+                type: number
+              speciality:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfJoining:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              doctorId:
+                type: string
+          required: true
+          description: Updated doctor's details to update in database.
+
+      responses:
+        '200':    # status code
+          description: Doctor's details updated successfully in database.
+
+
+# Delete Doctor
+  /doctor/deleteDoctor:
+    post:
+      tags:
+        - doctors
+      security:
+        - BearerAuth: []
+      summary: To delete a doctor's profile from database.
+      description: Hospital Id & Doctor Id of doctor are sent in body to detete that doctor's profile from database.
+      parameters:
+        - in: body
+          name: Doctor Ids
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+              doctorId:
+                type: string
+          required: true
+          description: Hospital Id & Doctor Id of doctor to be deleted.
+
+      responses:
+        '200':    # status code
+          description: Doctor's profile deleted successfully.
+
+
+
+
+
+
+# **************************************************PATIENTS ENDPOINTS*****************************************
+
+
+# Api Test EndPoint
+  /patient/test:
+   get:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: This api is used to check if patient endpoint is working or not.
+      description: This api is used to check if patient endpoint is working or not.
+      responses:
+        200:
+            description : Patient endpoint working Fine.
+
+
+# Get Patients by Hospital ID
+  /patient/getPatientByHospitalId:
+    post:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: Returns a list of patients using hospital id.
+      description: Hospital id is sent in body & then api returns a list of patients with that hospital id.
+      parameters:
+        - in: body
+          name: id
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+          required: true
+          description: AlphaNumeric ID of the hospital to get patients list.
+
+      responses:
+        '200':    # status code
+          description: List of patients using hospital id received.
+
+
+# Get Patients's Details
+  /patient/{patientid}:
+    get:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: Returns a patient's details using patient id.
+      description: Patient id is sent in path parameter & then api returns patients's details with that patient id.
+      parameters:
+        - in: path
+          name: patientid
+          schema:
+            type: string
+          required: true
+          description: Patient Id of patient to be fetched.
+
+      responses:
+        '200':    # status code
+          description: Patients's profile fetched successfully.
+
+
+# Add Patient
+  /patient/addPatient:
+    post:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: To add a patient in database.
+      description: Patient details are sent in body to add that patient in database.
+      parameters:
+        - in: body
+          name: Patient Details
+          schema:
+            type: object
+            properties:
+              fullName:
+                type: string
+              guardianName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              gender:
+                type: string
+              age:
+                type: number
+              phoneNumber:
+                type: number
+              type:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfRegistration:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              patientId:
+                type: string
+          required: true
+          description: Patient details to add that patient in database.
+
+      responses:
+        '200':    # status code
+          description: Patient added successfully in database.
+
+
+
+# Update Patient
+  /patient/updatePatient:
+    post:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: To update a patient's details in database.
+      description: Updated patient's details are sent in body to update that patient's details in database.
+      parameters:
+        - in: body
+          name: Patient Details
+          schema:
+            type: object
+            properties:
+              fullName:
+                type: string
+              guardianName:
+                type: string
+              email:
+                type: string
+              gender:
+                type: string
+              age:
+                type: number
+              phoneNumber:
+                type: number
+              type:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfRegistration:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              patientId:
+                type: string
+          required: true
+          description: Updated patient's details to update in database.
+
+      responses:
+        '200':    # status code
+          description: Patient's details updated successfully in database.
+
+
+# Delete Patient
+  /patient/deletePatient:
+    post:
+      tags:
+        - patients
+      security:
+        - BearerAuth: []
+      summary: To delete a patient's profile from database.
+      description: Hospital Id & Doctor Id of patient are sent in body to detete that patient's profile from database.
+      parameters:
+        - in: body
+          name: Patient Ids
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+              patientId:
+                type: string
+          required: true
+          description: Hospital Id & Doctor Id of patient to be deleted.
+
+      responses:
+        '200':    # status code
+          description: Patient's profile deleted successfully.
+
+
+
+
+
+
+# **************************************************STAFF ENDPOINTS*****************************************
+
+
+# Api Test EndPoint
+  /staff/test:
+   get:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: This api is used to check if staff endpoint is working or not.
+      description: This api is used to check if staff endpoint is working or not.
+      responses:
+        200:
+            description : Staff endpoint working Fine.
+
+
+# Get Staff by Hospital ID
+  /staff/getStaffByHospitalId:
+    post:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: Returns a list of staff using hospital id.
+      description: Hospital id is sent in body & then api returns a list of staff with that hospital id.
+      parameters:
+        - in: body
+          name: id
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+          required: true
+          description: AlphaNumeric ID of the hospital to get staff list.
+
+      responses:
+        '200':    # status code
+          description: List of staff using hospital id received.
+
+
+# Get Staff Member's Details
+  /staff/{staffid}:
+    get:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: Returns a staff member's details using staff id.
+      description: Staff id is sent in path parameter & then api staff member's details with that staff id.
+      parameters:
+        - in: path
+          name: staffid
+          schema:
+            type: string
+          required: true
+          description: Staff Id of staff member to be fetched.
+
+      responses:
+        '200':    # status code
+          description: Staff member's profile fetched successfully.
+
+
+# Add Staff Member
+  /staff/addStaff:
+    post:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: To add a staff member's details in database.
+      description: Staff member's details are sent in body to add that Staff member in database.
+      parameters:
+        - in: body
+          name: Staff member's Details
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              password:
+                type: string
+              gender:
+                type: string
+              phoneNumber:
+                type: number
+              designation:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfJoining:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              staffId:
+                type: string
+          required: true
+          description: Staff member's details to add that staff member in database.
+
+      responses:
+        '200':    # status code
+          description: Staff member added successfully in database.
+
+
+
+# Update Staff
+  /staff/updateStaff:
+    post:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: To update a staff member's details in database.
+      description: Updated staff member's details are sent in body to update that staff member's details in database.
+      parameters:
+        - in: body
+          name: Staff member's Details
+          schema:
+            type: object
+            properties:
+              firstName:
+                type: string
+              lastName:
+                type: string
+              email:
+                type: string
+              gender:
+                type: string
+              phoneNumber:
+                type: number
+              designation:
+                type: string
+              address:
+                type: string
+              dateOfBirth:
+                type: string
+              dateOfJoining:
+                type: string
+              profileImage:
+                type: string
+              hospitalId:
+                type: string
+              staffId:
+                type: string
+          required: true
+          description: Updated staff member's details to update in database.
+
+      responses:
+        '200':    # status code
+          description: Staff member's details updated successfully in database.
+
+
+# Delete Patient
+  /staff/deleteStaff:
+    post:
+      tags:
+        - staff
+      security:
+        - BearerAuth: []
+      summary: To delete a staff member's profile from database.
+      description: Hospital Id & Staff Id of staff member are sent in body to detete that staff member's profile from database.
+      parameters:
+        - in: body
+          name: Staff Ids
+          schema:
+            type: object
+            properties:
+              hospitalId:
+                type: string
+              staffId:
+                type: string
+          required: true
+          description: Hospital Id & Staff Id of staff member to be deleted.
+
+      responses:
+        '200':    # status code
+          description: Staff member's profile deleted successfully.
+
+
+
+
+
+
+
+
+
+
+
+
+
+# COMMONS
+
+security:
+  - APIKeyHeader: []
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    in: header
+    name: Authorization     
+# definitions:
+#   ErrorObject:
+#     type: object
+#     properties:
+#       code:
+#         type: integer
+#       message:
+#         type: string
+#   BaseResponse:
+#     type: object
+#     properties:
+#       errors:
+#         type: array
+#         items:
+#           $ref: "#/definitions/ErrorObject"
+#         description: nullable field
+#       errorDescription:
+#         type: string
+#         description: nullable field

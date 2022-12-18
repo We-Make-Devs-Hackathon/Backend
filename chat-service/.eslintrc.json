@@ -1,0 +1,66 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-console": "error",
+        "no-var": "error",
+        "no-undef": "error",
+        "no-useless-escape": "off",
+        "no-unused-vars": "error",
+        "no-self-assign": "off",
+        "no-constant-condition": "off",
+        "no-redeclare": "off",
+        // "comma-dangle": "error",
+        "camelcase": "off",
+        "no-use-before-define": [
+            "error",
+            {
+                "functions": false,
+                "classes": false
+            }
+        ],
+        "no-prototype-builtins": "off",
+        "require-atomic-updates": "off",
+        "no-async-promise-executor": "off",
+        "strict": [
+            "error",
+            "global"
+        ],
+        // "indent": [
+        //     "error",
+        //     4,
+        //     {
+        //         "SwitchCase": 1
+        //     }
+        // ],
+        "max-len": [
+            "error",
+            {
+                "code": 200
+            }
+        ],
+        // "linebreak-style": [
+        //     "error",
+        //     "windows"
+        // ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ]
+    }
+}
