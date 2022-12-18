@@ -2,13 +2,13 @@ const StreamChat = require("stream-chat").StreamChat;
 
 
 const serverClient = StreamChat.getInstance(
-  "pfcg3zjxem73",
-  "ve7k8p4z3uvqbru57ppz6svepgx3jdxng59fqnsh942qzj4ns48eqhmnze38xbmx"
+  process.env.STREAM_API_KEY,
+  process.env.STREAM_API_SECRET
 );
 
 async function createChannel(id,user1Id,user2Id) {
   const channel = serverClient.channel("messaging", id, {
-    created_by_id: "john",
+    created_by_id: user1Id,
   });
   await channel.create().then(
     console.log("channel created")
